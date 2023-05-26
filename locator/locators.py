@@ -23,3 +23,4 @@ class ProductPageLocators():
     NAME_OF_GOOD = (By.XPATH, "//div[@id='messages']/div[1]/div[contains(@class, 'alertinner')]/strong")
     ACTUAL_GOOD_ON_PAGE = (By.XPATH, "//div[contains(@class, 'product_main')]/h1")
     ACTUAL_PRICE_ON_PAGE = (By.XPATH, "//div[contains(@class, 'product_main')]/p[contains(@class, 'price_color')]")
+    SUCCESS_MASAGE = (By.XPATH, "//div[@id='messages']/div[1]")
