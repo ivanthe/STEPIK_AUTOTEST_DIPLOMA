@@ -11,7 +11,7 @@ class ProductPage(BasePage):
         print(self.actual_good)
         self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BUTTON).click()
         self.solve_quiz_and_get_code()
-        time.sleep(20)
+        time.sleep(2)
         return self.actual_good
 
 
@@ -24,10 +24,10 @@ class ProductPage(BasePage):
         assert actual_price == expected_price, "Цена в корзине не соответствует актуальной цене"
 
     def should_not_be_success_massage(self):
-        assert self.is_mot_element_present(*ProductPageLocators.SUCCESS_MASAGE), "Сообщение о добавлении в корзину появилось, НЕ ДОЛЖНО ПОЯВЛЯТЬСЯ!!!"
+        assert self.is_mot_element_present(*ProductPageLocators.SUCCESS_MASSAGE), "Сообщение о добавлении в корзину появилось, НЕ ДОЛЖНО ПОЯВЛЯТЬСЯ!!!"
 
     def should_disappear(self):
-        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MASAGE), "Сообщение об успешном добавлении не исчезло. ДОЛЖНО ИСЧЕЗАТЬ В ТЕЧЕНИИ 4Х СЕКУНД!!!"
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MASSAGE), "Сообщение об успешном добавлении не исчезло. ДОЛЖНО ИСЧЕЗАТЬ В ТЕЧЕНИИ 4Х СЕКУНД!!!"
 
 
 

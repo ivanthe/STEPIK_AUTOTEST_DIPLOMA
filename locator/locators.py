@@ -3,7 +3,8 @@ from selenium.webdriver.common.by import By
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
-    BACKET_BUTTON = (By.XPATH, "//div[contains(@class, 'basket-mini')]//a")
+    BASKET_BUTTON = (By.XPATH, "//div[contains(@class, 'basket-mini')]//a")
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 class BasketPageLocators():
     BASKET_EMPTY_MESSAGE = (By.XPATH, "//div[@id='content_inner']/p")
@@ -31,4 +32,4 @@ class ProductPageLocators():
     NAME_OF_GOOD = (By.XPATH, "//div[@id='messages']/div[1]/div[contains(@class, 'alertinner')]/strong")
     ACTUAL_GOOD_ON_PAGE = (By.XPATH, "//div[contains(@class, 'product_main')]/h1")
     ACTUAL_PRICE_ON_PAGE = (By.XPATH, "//div[contains(@class, 'product_main')]/p[contains(@class, 'price_color')]")
-    SUCCESS_MASAGE = (By.XPATH, "//div[@id='messages']/div[1]")
+    SUCCESS_MASSAGE = (By.XPATH, "//div[@id='messages']/div[1]")

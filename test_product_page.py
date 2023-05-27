@@ -1,5 +1,6 @@
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
 import pytest
 
 link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
@@ -43,14 +44,12 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     product_page.click_button_add_goods_to_basket()
     product_page.should_not_be_success_massage()
 
-#@pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"])
 def test_guest_cant_see_success_message(browser):
     product_page = ProductPage(browser, link)
     product_page.open()
     product_page.should_not_be_success_massage()
 
 @pytest.mark.xfail(reason="Ждем пока реализуют функционал")
-#@pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"])
 def test_message_disappeared_after_adding_product_to_basket(browser):
     product_page = ProductPage(browser, link)
     product_page.open()
@@ -63,3 +62,28 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     product_page.go_to_basket()
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.should_be_empty_basket()
+
+class TestUserAddToBasketFromProductPage():
+
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        login_page = LoginPage(browser, link)
+        login_page.open()
+        login_page.go_to_login_page()
+        login_page.register_new_user()
+        login_page.should_be_authorized_user()
+
+
+    def test_user_cant_see_success_message(self, browser):
+        product_page = ProductPage(browser, link)
+        product_page.open()
+        product_page.should_not_be_success_massage()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        product_page = ProductPage(browser, link)
+        product_page.open()
+        actual_good_data = product_page.click_button_add_goods_to_basket()
+        name = actual_good_data[0]  #название получено до клика ДОБАВИТЬ В КОРЗИНУ
+        price = actual_good_data[1]  #цена получено до клика ДОБАВИТЬ В КОРЗИНУ
+        product_page.should_be_added_to_basket_correct_good(name)
+        product_page.should_be_correct_price(price)
