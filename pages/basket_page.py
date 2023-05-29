@@ -1,6 +1,5 @@
 from .base_page import BasePage
 from .locators import BasketPageLocators
-from ..data.data import Constants   #
 
 class BasketPage(BasePage):
 
