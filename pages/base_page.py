@@ -1,6 +1,6 @@
 import math
 import time
-from ..locator.locators import BasePageLocators
+from .locators import BasePageLocators
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,17 +14,17 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
-    def open(self):
+    def open(self): #открывает страницу
         self.browser.get(self.url)
 
-    def go_to_login_page(self):
+    def go_to_login_page(self): #переходит на страницу логина и регистрации
         self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
 
-    def go_to_basket(self):
+    def go_to_basket(self): #переходит в корзину
         self.browser.find_element(*BasePageLocators.BASKET_BUTTON).click()
 
-    def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+    def should_be_login_link(self): #проверяет есть ли ссылка на логин и регистрацию
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Сыылка на логин не представлена на странице"
 
     def is_element_present(self, how, what):  #проверяет присутствует ли элемент на странице
         try:
@@ -48,11 +48,11 @@ class BasePage():
             return False
         return True
 
-    def should_be_authorized_user(self):
+    def should_be_authorized_user(self): #проверяет прошла ли авторизация
         assert self.is_element_present(*BasePageLocators.USER_ICON), "Иконка пользователя не представлена," \
                                                                      " ПОЛЬЗОВАТЕЛЬ НЕ БЫЛ АВТОРИЗОВАН!!!"
 
-    def solve_quiz_and_get_code(self):
+    def solve_quiz_and_get_code(self):  #решает задачу в алерте
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
